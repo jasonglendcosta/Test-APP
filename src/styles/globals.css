@@ -3581,7 +3581,63 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* Responsive */
+/* ═══════════════════════════════════════════════════════════════════
+   GOD-TIER MOBILE OPTIMIZATION - iOS & Android
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Base Mobile Touch Optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS-specific styles */
+  body {
+    -webkit-touch-callout: none;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Touch-friendly tap targets (minimum 44px for iOS, 48dp for Android) */
+button,
+a,
+.clickable,
+.tab-btn,
+.back-btn,
+.unit-cell,
+.floor-marker,
+.nav-links a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Prevent text selection on interactive elements */
+button, .tab-btn, .nav-links a, .floor-marker {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth momentum scrolling */
+.scrollable,
+.tower-details-panel,
+.unit-detail-popup {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+}
+
+/* Safe area insets for notched devices */
+.nav {
+  padding-top: max(16px, env(safe-area-inset-top));
+  padding-left: max(40px, env(safe-area-inset-left));
+  padding-right: max(40px, env(safe-area-inset-right));
+}
+
+.project-brief-container {
+  padding-bottom: max(60px, env(safe-area-inset-bottom));
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TABLET BREAKPOINT (1024px and below)
+   ═══════════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
   .tower-experience {
     flex-direction: column;
@@ -3604,12 +3660,237 @@ body {
     gap: 16px;
     text-align: center;
   }
+
+  .project-brief-container {
+    padding: 100px 24px 60px;
+  }
+
+  .brief-tabs {
+    gap: 4px;
+    padding: 4px;
+  }
+
+  .tab-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .project-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .financial-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .unit-popup-grid {
+    gap: 12px;
+  }
 }
 
-@media (max-width: 600px) {
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE LANDSCAPE (768px and below)
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Navigation */
+  .nav {
+    padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  /* Project Brief Header */
+  .brief-header {
+    padding: 20px 16px;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .back-btn {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .brief-header-content {
+    margin-top: 40px;
+  }
+
+  .brief-title {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .brief-subtitle {
+    font-size: 14px;
+  }
+
+  .brief-header-stats {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .header-stat {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 16px;
+  }
+
+  .header-stat-value {
+    font-size: 18px;
+  }
+
+  /* Tabs - Horizontal Scroll */
+  .brief-tabs-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 16px;
+  }
+
+  .brief-tabs-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .brief-tabs {
+    display: inline-flex;
+    min-width: max-content;
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .tab-btn {
+    padding: 10px 14px;
+    font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Container */
+  .project-brief-container {
+    padding: 80px 12px 40px;
+  }
+
+  /* Cards */
+  .project-card {
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 16px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* Project Info */
+  .project-info-row {
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 0;
+  }
+
+  .info-label {
+    font-size: 11px;
+  }
+
+  .info-value {
+    font-size: 14px;
+  }
+
+  /* Specs Grid */
+  .project-specs-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .spec-item {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .spec-value {
+    font-size: 18px;
+  }
+
+  .spec-label {
+    font-size: 10px;
+  }
+
+  /* Tower Experience */
+  .tower-experience {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tower-container {
+    height: 400px;
+    border-radius: 16px;
+  }
+
+  .tower-image-wrapper {
+    padding: 20px;
+  }
+
+  .tower-render {
+    max-height: 320px;
+  }
+
+  .floor-markers {
+    right: 8px;
+  }
+
+  .floor-marker {
+    width: 36px;
+    height: 36px;
+    font-size: 10px;
+  }
+
+  /* Tower Details Panel */
+  .tower-details-panel {
+    padding: 16px;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .grid-stack-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .grid-stack-title {
+    font-size: 18px;
+  }
+
+  /* Unit Grid */
+  .unit-grid {
+    gap: 6px;
+    padding: 12px;
+  }
+
   .unit-cell {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
   }
 
   .unit-cell-number {
@@ -3617,12 +3898,611 @@ body {
   }
 
   .unit-cell-type {
+    font-size: 8px;
+  }
+
+  /* Unit Types */
+  .unit-types-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .unit-type-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .unit-type-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .unit-type-name {
+    font-size: 15px;
+  }
+
+  .unit-type-stats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .unit-type-stat {
+    font-size: 11px;
+  }
+
+  /* Financial KPIs */
+  .financial-kpis {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .kpi-card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .kpi-value {
+    font-size: 24px;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+  }
+
+  /* Payment Plan */
+  .payment-timeline {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+  }
+
+  .payment-bar {
+    min-width: 600px;
+  }
+
+  .milestone-dot {
+    width: 14px;
+    height: 14px;
+  }
+
+  .milestone-label {
     font-size: 9px;
   }
 
+  /* Amenities */
+  .amenities-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .amenity-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .amenity-icon {
+    font-size: 24px;
+  }
+
+  .amenity-name {
+    font-size: 11px;
+  }
+
+  /* Location */
+  .location-items {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .location-item {
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+
+  /* Popup */
   .unit-detail-popup {
-    width: 95vw;
-    max-height: 90vh;
+    width: calc(100vw - 24px);
+    max-width: 400px;
+    max-height: calc(100vh - 100px);
+    border-radius: 20px;
+  }
+
+  .unit-popup-header {
+    padding: 16px 20px;
+  }
+
+  .unit-popup-title {
+    font-size: 24px;
+  }
+
+  .unit-popup-body {
+    padding: 16px 20px;
+  }
+
+  .unit-popup-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .unit-popup-item {
+    padding: 12px;
+  }
+
+  .unit-popup-value {
+    font-size: 15px;
+  }
+
+  .unit-popup-price .unit-popup-value {
+    font-size: 22px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE PORTRAIT (480px and below) - iPhone SE, older devices
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  /* Global */
+  html {
+    font-size: 14px;
+  }
+
+  /* Navigation */
+  .nav {
+    padding: max(8px, env(safe-area-inset-top)) 12px 8px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+  /* Container */
+  .project-brief-container {
+    padding: 70px 8px 30px;
+  }
+
+  /* Header */
+  .brief-header {
+    padding: 16px 12px;
+    border-radius: 16px;
+  }
+
+  .brief-title {
+    font-size: 22px;
+  }
+
+  .brief-subtitle {
+    font-size: 12px;
+  }
+
+  .header-stat-value {
+    font-size: 16px;
+  }
+
+  .header-stat-label {
+    font-size: 9px;
+  }
+
+  /* Tabs */
+  .tab-btn {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  /* Cards */
+  .project-card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+  }
+
+  /* Specs */
+  .project-specs-grid {
+    gap: 6px;
+  }
+
+  .spec-item {
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .spec-value {
+    font-size: 16px;
+  }
+
+  .spec-label {
+    font-size: 9px;
+  }
+
+  /* Tower */
+  .tower-container {
+    height: 350px;
+    border-radius: 12px;
+  }
+
+  .tower-render {
+    max-height: 280px;
+  }
+
+  .floor-marker {
+    width: 32px;
+    height: 32px;
+    font-size: 9px;
+  }
+
+  /* Unit Grid */
+  .unit-grid {
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .unit-cell {
+    width: 52px;
+    height: 52px;
+    border-radius: 6px;
+  }
+
+  .unit-cell-number {
+    font-size: 11px;
+  }
+
+  .unit-cell-type {
+    font-size: 7px;
+  }
+
+  .unit-cell-status {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Stats Bar */
+  .grid-stats-bar {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .grid-stat {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  /* KPIs */
+  .kpi-card {
+    padding: 14px;
+  }
+
+  .kpi-value {
+    font-size: 20px;
+  }
+
+  /* Popup */
+  .unit-detail-popup {
+    width: calc(100vw - 16px);
+    max-height: calc(100vh - 80px);
+    left: 8px;
+    right: 8px;
+    transform: translate(0, -50%);
+    border-radius: 16px;
+  }
+
+  .unit-detail-popup.open {
+    transform: translate(0, -50%);
+  }
+
+  .unit-popup-header {
+    padding: 14px 16px;
+  }
+
+  .unit-popup-title {
+    font-size: 20px;
+  }
+
+  .unit-popup-body {
+    padding: 14px 16px;
+  }
+
+  .unit-popup-grid {
+    gap: 8px;
+  }
+
+  .unit-popup-item {
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .unit-popup-label {
+    font-size: 9px;
+  }
+
+  .unit-popup-value {
+    font-size: 14px;
+  }
+
+  .unit-popup-price {
+    padding: 14px;
+  }
+
+  .unit-popup-price .unit-popup-value {
+    font-size: 18px;
+  }
+
+  .unit-popup-feature {
+    font-size: 9px;
+    padding: 4px 8px;
+  }
+
+  .unit-popup-close {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   EXTRA SMALL DEVICES (320px) - iPhone SE 1st gen, Galaxy S Mini
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 360px) {
+  html {
+    font-size: 13px;
+  }
+
+  .brief-title {
+    font-size: 18px;
+  }
+
+  .tab-btn {
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
+  .spec-value {
+    font-size: 14px;
+  }
+
+  .unit-cell {
+    width: 44px;
+    height: 44px;
+  }
+
+  .unit-cell-number {
+    font-size: 10px;
+  }
+
+  .unit-cell-type {
+    display: none;
+  }
+
+  .kpi-value {
+    font-size: 18px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   iOS SPECIFIC OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+@supports (-webkit-touch-callout: none) {
+  /* Fix for iOS rubber banding */
+  body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .project-brief-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Fix for notched iPhones */
+  .nav {
+    padding-top: max(16px, constant(safe-area-inset-top));
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
+
+  .project-brief-container {
+    padding-bottom: max(40px, constant(safe-area-inset-bottom));
+    padding-bottom: max(40px, env(safe-area-inset-bottom));
+  }
+
+  /* iOS active state */
+  button:active,
+  .tab-btn:active,
+  .unit-cell:active,
+  .floor-marker:active {
+    opacity: 0.7;
+    transform: scale(0.97);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANDROID SPECIFIC OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  /* Android touch devices */
+
+  /* Larger touch targets */
+  button, a, .clickable {
+    min-height: 48px;
+    min-width: 48px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .unit-cell:hover,
+  .floor-marker:hover,
+  .tab-btn:hover,
+  .project-card:hover,
+  .kpi-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Add active states instead */
+  .unit-cell:active,
+  .floor-marker:active,
+  .tab-btn:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  /* Ripple effect for material design feel */
+  .tab-btn,
+  .unit-cell,
+  .floor-marker {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tab-btn::after,
+  .unit-cell::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+  }
+
+  .tab-btn:active::after,
+  .unit-cell:active::after {
+    width: 200%;
+    height: 200%;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LANDSCAPE MODE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .nav {
+    padding: 8px 16px;
+  }
+
+  .project-brief-container {
+    padding-top: 60px;
+  }
+
+  .brief-header {
+    padding: 12px 16px;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .brief-header-stats {
+    flex-direction: row;
+  }
+
+  .tower-container {
+    height: 300px;
+  }
+
+  .tower-details-panel {
+    max-height: 50vh;
+  }
+
+  .unit-detail-popup {
+    max-height: 90vh;
+    width: 80vw;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HIGH DPI / RETINA OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper borders on retina */
+  .project-card,
+  .unit-cell,
+  .tab-btn,
+  .kpi-card {
+    border-width: 0.5px;
+  }
+
+  /* Better text rendering */
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   REDUCED MOTION - Accessibility
+   ═══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .bg-animation::before,
+  .bg-animation::after,
+  .grid-overlay {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   DARK MODE OPTIMIZATIONS (System Preference)
+   ═══════════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+
+  /* Reduce glow intensity for OLED screens */
+  .bg-animation::before {
+    opacity: 0.8;
+  }
+
+  /* Better contrast for AMOLED */
+  .project-card,
+  .kpi-card,
+  .unit-cell {
+    background: rgba(18, 18, 26, 0.95);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PRINT STYLES (Just in case)
+   ═══════════════════════════════════════════════════════════════════ */
+@media print {
+  .bg-animation,
+  .grid-overlay,
+  .nav,
+  .back-btn {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .project-card {
+    border: 1px solid #ddd;
+    background: white;
+    page-break-inside: avoid;
   }
 }

@@ -1,0 +1,28 @@
+{
+  "name": "ONE Development Strategic Platform",
+  "short_name": "ONE DEV",
+  "description": "ONE DEVELOPMENT - 2026 Digital Transformation & AI Strategy Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#D86DCB",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/tower-day.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/tower-day.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "finance", "productivity"],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false
+}
