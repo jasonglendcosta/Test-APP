@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover">
+    <meta name="theme-color" content="#D86DCB">
+    <meta name="description" content="ONE DEVELOPMENT - 2026 Digital Transformation & AI Strategy">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ONE DEV">
+    <title>ONE DEVELOPMENT | Strategic Platform 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/recharts@2.5.0/umd/Recharts.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'od-pink': '#D86DCB',
+                        'od-magenta': '#A02B93',
+                        'od-dark': '#0a0a0f',
+                        'od-slate': '#1a1a24',
+                    },
+                    fontFamily: {
+                        'grotesk': ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a24 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text { 
+            background: linear-gradient(135deg, #D86DCB, #A02B93); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass { 
+            background: rgba(26, 26, 36, 0.7); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .glass-light {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .glow-border {
+            border: 1px solid rgba(216, 109, 203, 0.3);
+            box-shadow: 0 0 20px rgba(216, 109, 203, 0.1);
+        }
+        
+        .glow-border:hover {
+            border-color: rgba(216, 109, 203, 0.5);
+            box-shadow: 0 0 30px rgba(216, 109, 203, 0.2);
+        }
+        
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 85%, rgba(216, 109, 203, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 15%, rgba(160, 43, 147, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
+            animation: bg-float 20s ease-in-out infinite;
+        }
+        
+        @keyframes bg-float {
+            0%, 100% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.05) translate(-2%, 2%); }
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(216, 109, 203, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(216, 109, 203, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(216, 109, 203, 0.6);
+            animation: float-particle 15s ease-in-out infinite;
+        }
+        
+        @keyframes float-particle {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+            25% { transform: translateY(-100px) translateX(50px) scale(1.2); opacity: 0.8; }
+            50% { transform: translateY(-50px) translateX(-30px) scale(0.8); opacity: 0.4; }
+            75% { transform: translateY(-150px) translateX(80px) scale(1.1); opacity: 0.7; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(216, 109, 203, 0.3); }
+            to { box-shadow: 0 0 40px rgba(216, 109, 203, 0.6); }
+        }
+        
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .gradient-btn {
+            background: linear-gradient(135deg, #D86DCB, #A02B93);
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(216, 109, 203, 0.4);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 30px rgba(216, 109, 203, 0.5);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(180deg, 
+                rgba(216, 109, 203, 0.1) 0%, 
+                transparent 50%,
+                rgba(160, 43, 147, 0.05) 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState, useMemo, useEffect, useCallback } = React;
+        const { 
+            LineChart, Line, BarChart, Bar, PieChart: RePieChart, Pie, Cell, 
+            XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, 
+            AreaChart, Area, ComposedChart, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis
+        } = Recharts;
+
+        // ==================== DESIGN TOKENS ====================
+        const COLORS = {
+            primary: '#D86DCB',
+            secondary: '#A02B93',
+            accent: '#6366f1',
+            success: '#10b981',
+            warning: '#f59e0b',
+            error: '#ef4444',
+            info: '#06b6d4'
+        };
+
+        // ==================== PROJECT DATA ====================
+        const PROJECT_DATA = {
+            name: "One Residence",
+            developer: "One Development",
+            consultant: "Terra PMC",
+            masterDeveloper: "ADGM",
+            location: "Al Reem Island, Abu Dhabi",
+            plotNo: "C31-32",
+            sector: 3,
+            zone: "RT",
+            landArea: { sqm: 4809.77, sqft: 51772.36 },
+            totalBUA: { sqm: 44779, sqft: 482000 },
+            totalGFA: { sqm: 28413, sqft: 305837.53 },
+            totalSellable: { sqft: 290076 },
+            height: "124m",
+            floors: "G+3P+27+R",
+            totalFloors: 31,
+            parking: 244,
+            totalUnits: 196,
+            completionDate: "December 2028",
+            totalRevenue: 452228756,
+            brokerCommission: "5%"
+        };
+
+        const UNIT_TYPES = [
+            { type: "1-Bedroom Simplex", units: 63, store: "Store", parking: 1, sizeRange: "875 - 1300", avgSize: 985, priceRange: "1.4M - 2.1M", avgPrice: 1580000, color: "#6366f1", psfRange: "1544 - 1674", avgPsf: 1601 },
+            { type: "1-Bedroom Duplex", units: 13, store: "Store", parking: 1, sizeRange: "968 - 1309", avgSize: 994, priceRange: "1.6M - 2.3M", avgPrice: 1760000, color: "#8b5cf6", psfRange: "1681 - 1847", avgPsf: 1766 },
+            { type: "2-Bedroom Simplex", units: 74, store: "Maid's + Store", parking: 1, sizeRange: "1371 - 1867", avgSize: 1497, priceRange: "1.9M - 2.7M", avgPrice: 2230000, color: "#06b6d4", psfRange: "1384 - 1581", avgPsf: 1491 },
+            { type: "2-Bedroom Duplex", units: 11, store: "Maid's + Store", parking: 1, sizeRange: "1935 - 2421", avgSize: 2038, priceRange: "3.0M - 3.9M", avgPrice: 3260000, color: "#0ea5e9", psfRange: "1549 - 1668", avgPsf: 1601 },
+            { type: "3-Bedroom Simplex", units: 20, store: "Maid's + Store", parking: 2, sizeRange: "1926 - 2485", avgSize: 2233, priceRange: "2.8M - 3.6M", avgPrice: 3330000, color: "#10b981", psfRange: "1421 - 1549", avgPsf: 1490 },
+            { type: "3-Bedroom Duplex", units: 12, store: "Maid's + Store", parking: 2, sizeRange: "2275 - 2786", avgSize: 2362, priceRange: "3.2M - 4.5M", avgPrice: 3650000, color: "#14b8a6", psfRange: "1426 - 1664", avgPsf: 1544 },
+            { type: "4-Bedroom Duplex", units: 2, store: "Maid's + Store", parking: 2, sizeRange: "3196 - 3352", avgSize: 3274, priceRange: "5.6M - 5.8M", avgPrice: 5780000, color: "#f59e0b", psfRange: "1753 - 1777", avgPsf: 1765 },
+            { type: "Retail", units: 1, store: "N/A", parking: 15, sizeRange: "2,368", avgSize: 2368, priceRange: "7.2M", avgPrice: 7190000, color: "#ef4444", psfRange: "3,035", avgPsf: 3035 }
+        ];
+
+        const FLOOR_DATA = [
+            { floor: "GF", type: "Ground", total: 1, price: 7187111, units: { retail: 1 } },
+            { floor: "L1", type: "Loft", total: 8, price: 24070888, units: { "1BR-D": 1, "2BR-D": 7 } },
+            { floor: "3-8", type: "Typical T1", total: 60, price: 98627660, units: { "1BR-S": 54, "2BR-S": 6 } },
+            { floor: "L2", type: "Loft", total: 15, price: 32879665, units: { "1BR-D": 11, "2BR-D": 4 } },
+            { floor: "11-13", type: "Typical T2", total: 27, price: 54045997, units: { "1BR-S": 9, "2BR-S": 18 } },
+            { floor: "14-16", type: "Typical T3", total: 21, price: 51765331, units: { "2BR-S": 15, "3BR-S": 6 } },
+            { floor: "L3", type: "Loft", total: 8, price: 29052888, units: { "1BR-D": 1, "3BR-D": 7 } },
+            { floor: "19-25", type: "Typical T3", total: 49, price: 126464439, units: { "2BR-S": 35, "3BR-S": 14 } },
+            { floor: "L4", type: "Loft", total: 7, price: 28134777, units: { "3BR-D": 5, "4BR-D": 2 } }
+        ];
+
+        const AMENITIES = [
+            { name: "Hyperbaric Oxygen Therapy", icon: "🫁", category: "Premium" },
+            { name: "Swimming Pool & Kids Pool", icon: "🏊", category: "Recreation" },
+            { name: "Indoor & Outdoor Gym", icon: "💪", category: "Fitness" },
+            { name: "Yoga/Pilates Studio", icon: "🧘", category: "Wellness" },
+            { name: "Wellness Spa", icon: "🧖", category: "Wellness" },
+            { name: "Mini-Golf Course", icon: "⛳", category: "Recreation" },
+            { name: "Outdoor Theatre", icon: "🎬", category: "Entertainment" },
+            { name: "Family BBQ Area", icon: "🍖", category: "Social" }
+        ];
+
+        const STRATEGIC_PILLARS = [
+            { name: "Digital Transformation", icon: "🚀", value: 92, color: "#D86DCB", description: "AI-Powered Operations & Smart Buildings" },
+            { name: "Market Innovation", icon: "💎", value: 88, color: "#A02B93", description: "Premium Positioning & Unique Offerings" },
+            { name: "Customer Excellence", icon: "🎯", value: 95, color: "#6366f1", description: "World-Class Experience & Service" },
+            { name: "Sustainable Growth", icon: "🌱", value: 85, color: "#10b981", description: "ESG Leadership & Green Development" }
+        ];
+
+        const INITIATIVES = [
+            { name: "AI Property Intelligence", status: "active", progress: 78, budget: "2.5M", roi: "+340%" },
+            { name: "Smart Building IoT", status: "active", progress: 65, budget: "1.8M", roi: "+220%" },
+            { name: "Digital Sales Platform", status: "active", progress: 92, budget: "1.2M", roi: "+450%" },
+            { name: "Blockchain Transactions", status: "planning", progress: 25, budget: "800K", roi: "+180%" },
+            { name: "VR Property Tours", status: "active", progress: 88, budget: "600K", roi: "+280%" },
+            { name: "Predictive Analytics", status: "active", progress: 72, budget: "1.5M", roi: "+310%" }
+        ];
+
+        // ==================== UTILITY FUNCTIONS ====================
+        const formatCurrency = (value) => {
+            if (value >= 1000000) return `AED ${(value / 1000000).toFixed(1)}M`;
+            if (value >= 1000) return `AED ${(value / 1000).toFixed(0)}K`;
+            return `AED ${value.toLocaleString()}`;
+        };
+
+        // ==================== REUSABLE COMPONENTS ====================
+        const Logo = ({ size = "lg" }) => {
+            const sizes = { sm: "w-10 h-10 text-lg", md: "w-12 h-12 text-xl", lg: "w-14 h-14 text-2xl", xl: "w-20 h-20 text-4xl" };
+            return (
+                <div className={`${sizes[size]} rounded-2xl flex items-center justify-center font-bold gradient-btn`}
+                     style={{ boxShadow: '0 8px 32px rgba(216, 109, 203, 0.4)' }}>
+                    O
+                </div>
+            );
+        };
+
+        const GlowCard = ({ children, className = "", hover = true, glow = true }) => (
+            <div className={`glass rounded-2xl ${glow ? 'glow-border' : 'border border-white/10'} ${hover ? 'stat-card' : ''} ${className}`}>
+                {children}
+            </div>
+        );
+
+        const GradientButton = ({ children, onClick, className = "", variant = "primary" }) => {
+            const variants = {
+                primary: "gradient-btn text-white",
+                secondary: "bg-white/5 border border-white/20 text-white hover:bg-white/10",
+                ghost: "text-gray-400 hover:text-white hover:bg-white/5"
+            };
+            return (
+                <button onClick={onClick} className={`px-6 py-3 rounded-xl font-semibold transition-all ${variants[variant]} ${className}`}>
+                    {children}
+                </button>
+            );
+        };
+
+        const TabButton = ({ active, onClick, children, icon }) => (
+            <button
+                onClick={onClick}
+                className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all whitespace-nowrap ${
+                    active 
+                        ? 'gradient-btn text-white shadow-lg' 
+                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
+                }`}
+                style={active ? { boxShadow: '0 4px 20px rgba(216, 109, 203, 0.4)' } : {}}
+            >
+                {icon && <span className="text-lg">{icon}</span>}
+                {children}
+            </button>
+        );
+
+        const StatCard = ({ icon, label, value, subvalue, trend }) => (
+            <GlowCard className="p-5">
+                <div className="flex items-center justify-between mb-3">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xl gradient-btn">
+                        {icon}
+                    </div>
+                    {trend && (
+                        <span className={`text-sm font-medium ${trend > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                            {trend > 0 ? '↑' : '↓'} {Math.abs(trend)}%
+                        </span>
+                    )}
+                </div>
+                <p className="text-gray-400 text-sm">{label}</p>
+                <p className="text-2xl font-bold text-white mt-1">{value}</p>
+                {subvalue && <p className="text-gray-500 text-xs mt-1">{subvalue}</p>}
+            </GlowCard>
+        );
+
+        // ==================== CHARTS ====================
+        const UnitMixChart = () => {
+            const data = UNIT_TYPES.filter(u => u.type !== "Retail").map(u => ({
+                name: u.type.replace("-Bedroom", "BR").replace("Simplex", "S").replace("Duplex", "D"),
+                value: u.units,
+                color: u.color
+            }));
+            const total = data.reduce((sum, item) => sum + item.value, 0);
+
+            return (
+                <div className="relative" style={{ height: 250 }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <RePieChart>
+                            <Pie data={data} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={3} dataKey="value">
+                                {data.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />
+                                ))}
+                            </Pie>
+                            <Tooltip
+                                contentStyle={{ background: 'rgba(26, 26, 36, 0.95)', border: '1px solid rgba(216, 109, 203, 0.3)', borderRadius: '12px' }}
+                                itemStyle={{ color: '#fff' }}
+                            />
+                        </RePieChart>
+                    </ResponsiveContainer>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                        <div className="text-3xl font-bold text-white">{total}</div>
+                        <div className="text-gray-400 text-xs">Units</div>
+                    </div>
+                </div>
+            );
+        };
+
+        const RevenueChart = () => {
+            const data = UNIT_TYPES.filter(u => u.type !== "Retail").map(u => ({
+                name: u.type.split("-")[0],
+                units: u.units,
+                revenue: (u.units * u.avgPrice) / 1000000,
+                color: u.color
+            }));
+
+            return (
+                <div style={{ height: 250 }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <ComposedChart data={data}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+                            <XAxis dataKey="name" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                            <YAxis yAxisId="left" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                            <YAxis yAxisId="right" orientation="right" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                            <Tooltip
+                                contentStyle={{ background: 'rgba(26, 26, 36, 0.95)', border: '1px solid rgba(216, 109, 203, 0.3)', borderRadius: '12px' }}
+                                itemStyle={{ color: '#fff' }}
+                            />
+                            <Bar yAxisId="left" dataKey="units" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                            <Line yAxisId="right" type="monotone" dataKey="revenue" stroke="#D86DCB" strokeWidth={3} dot={{ fill: '#D86DCB', strokeWidth: 2 }} />
+                        </ComposedChart>
+                    </ResponsiveContainer>
+                </div>
+            );
+        };
+
+        const StrategicRadar = () => {
+            const data = STRATEGIC_PILLARS.map(p => ({
+                subject: p.name.split(' ')[0],
+                value: p.value,
+                fullMark: 100
+            }));
+
+            return (
+                <div style={{ height: 300 }}>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <RadarChart data={data}>
+                            <PolarGrid stroke="rgba(216, 109, 203, 0.2)" />
+                            <PolarAngleAxis dataKey="subject" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                            <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: '#666', fontSize: 10 }} />
+                            <Radar name="Performance" dataKey="value" stroke="#D86DCB" fill="#D86DCB" fillOpacity={0.3} strokeWidth={2} />
+                        </RadarChart>
+                    </ResponsiveContainer>
+                </div>
+            );
+        };
+
+        // ==================== TOWER VISUALIZATION ====================
+        const TowerVisualization = ({ selectedFloor, onFloorSelect }) => {
+            const floorTypes = {
+                "Ground": "#6366f1",
+                "Podium": "#64748b",
+                "Loft": "#8b5cf6",
+                "Typical T1": "#06b6d4",
+                "Typical T2": "#10b981",
+                "Typical T3": "#f59e0b",
+                "Roof": "#374151"
+            };
+
+            const floors = [
+                { level: "R", type: "Roof", units: 0, unitMix: {} },
+                { level: "L4", type: "Loft", units: 7, unitMix: { "3BR Duplex": 5, "4BR Duplex": 2 }, revenue: 28134777 },
+                ...Array.from({length: 7}, (_, i) => ({ level: `${25-i}`, type: "Typical T3", units: 7, unitMix: { "2BR Simplex": 5, "3BR Simplex": 2 }, revenue: 18066348 })),
+                { level: "L3", type: "Loft", units: 8, unitMix: { "1BR Duplex": 1, "3BR Duplex": 7 }, revenue: 29052888 },
+                ...Array.from({length: 3}, (_, i) => ({ level: `${16-i}`, type: "Typical T3", units: 7, unitMix: { "2BR Simplex": 5, "3BR Simplex": 2 }, revenue: 17255110 })),
+                ...Array.from({length: 3}, (_, i) => ({ level: `${13-i}`, type: "Typical T2", units: 9, unitMix: { "1BR Simplex": 3, "2BR Simplex": 6 }, revenue: 18015332 })),
+                { level: "L2", type: "Loft", units: 15, unitMix: { "1BR Duplex": 11, "2BR Duplex": 4 }, revenue: 32879665 },
+                ...Array.from({length: 6}, (_, i) => ({ level: `${8-i}`, type: "Typical T1", units: 10, unitMix: { "1BR Simplex": 9, "2BR Simplex": 1 }, revenue: 16437943 })),
+                { level: "L1", type: "Loft", units: 8, unitMix: { "1BR Duplex": 1, "2BR Duplex": 7 }, revenue: 24070888 },
+                { level: "P3", type: "Podium", units: 0, unitMix: {} },
+                { level: "P2", type: "Podium", units: 0, unitMix: {} },
+                { level: "P1", type: "Podium", units: 0, unitMix: {} },
+                { level: "GF", type: "Ground", units: 1, unitMix: { "Retail": 1 }, revenue: 7187111 }
+            ];
+
+            return (
+                <div className="flex gap-8">
+                    <div className="flex flex-col-reverse gap-0.5">
+                        {floors.map((floor, idx) => {
+                            const isSelected = selectedFloor && selectedFloor.level === floor.level;
+                            const isPodium = floor.type === "Podium" || floor.type === "Ground";
+                            return (
+                                <div
+                                    key={floor.level}
+                                    onClick={() => floor.units > 0 && onFloorSelect(floor)}
+                                    className={`relative transition-all duration-300 ${floor.units > 0 ? 'cursor-pointer hover:scale-105' : ''}`}
+                                    style={{
+                                        width: isPodium ? '220px' : '160px',
+                                        height: floor.type === "Loft" ? '28px' : '18px',
+                                        marginLeft: isPodium ? '0' : '30px',
+                                        background: `linear-gradient(135deg, ${floorTypes[floor.type]}, ${floorTypes[floor.type]}cc)`,
+                                        borderRadius: '3px',
+                                        boxShadow: isSelected ? `0 0 20px ${floorTypes[floor.type]}` : 'none',
+                                        transform: isSelected ? 'scale(1.1)' : 'scale(1)',
+                                        zIndex: isSelected ? 10 : 1
+                                    }}
+                                >
+                                    <div className="absolute inset-0 flex items-center justify-between px-3 text-[10px] text-white/90">
+                                        <span className="font-bold">{floor.level}</span>
+                                        {floor.units > 0 && <span>{floor.units}</span>}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <GlowCard className="p-4 h-fit">
+                        <p className="text-gray-400 text-xs mb-3 font-medium">Floor Types</p>
+                        {Object.entries(floorTypes).filter(([type]) => type !== "Roof").map(([type, color]) => (
+                            <div key={type} className="flex items-center gap-2 text-xs text-gray-300 mb-2">
+                                <div className="w-4 h-4 rounded" style={{ background: color }} />
+                                {type}
+                            </div>
+                        ))}
+                    </GlowCard>
+                </div>
+            );
+        };
+
+        // ==================== HOME PAGE ====================
+        const HomePage = ({ onNavigate }) => {
+            const [animatedValues, setAnimatedValues] = useState({});
+            
+            useEffect(() => {
+                const timer = setTimeout(() => {
+                    setAnimatedValues({
+                        projects: 12,
+                        revenue: 4.2,
+                        growth: 34,
+                        satisfaction: 98
+                    });
+                }, 500);
+                return () => clearTimeout(timer);
+            }, []);
+
+            return (
+                <div className="min-h-screen">
+                    {/* Hero Section */}
+                    <section className="relative min-h-screen flex items-center hero-gradient">
+                        <div className="max-w-7xl mx-auto px-6 py-20">
+                            <div className="grid lg:grid-cols-2 gap-16 items-center">
+                                <div className="space-y-8">
+                                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                                        <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                                        <span className="text-sm text-gray-300">2026 Strategic Vision</span>
+                                    </div>
+                                    
+                                    <h1 className="text-5xl lg:text-7xl font-bold leading-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                                        <span className="text-white">Building</span>
+                                        <br />
+                                        <span className="gradient-text text-glow">Tomorrow's</span>
+                                        <br />
+                                        <span className="text-white">Legacy</span>
+                                    </h1>
+                                    
+                                    <p className="text-xl text-gray-400 max-w-lg leading-relaxed">
+                                        ONE Development's strategic roadmap for digital transformation, 
+                                        AI-powered innovation, and sustainable growth in the UAE real estate market.
+                                    </p>
+                                    
+                                    <div className="flex flex-wrap gap-4">
+                                        <GradientButton onClick={() => onNavigate('project')}>
+                                            <span className="flex items-center gap-2">
+                                                <span>Explore One Residence</span>
+                                                <span>→</span>
+                                            </span>
+                                        </GradientButton>
+                                        <GradientButton variant="secondary">
+                                            <span className="flex items-center gap-2">
+                                                <span>📊</span>
+                                                <span>View Analytics</span>
+                                            </span>
+                                        </GradientButton>
+                                    </div>
+                                </div>
+                                
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-od-pink/20 to-od-magenta/20 rounded-3xl blur-3xl"></div>
+                                    <GlowCard className="relative p-8">
+                                        <StrategicRadar />
+                                        <div className="grid grid-cols-2 gap-4 mt-6">
+                                            {STRATEGIC_PILLARS.map((pillar, idx) => (
+                                                <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
+                                                    <span className="text-2xl">{pillar.icon}</span>
+                                                    <div>
+                                                        <p className="text-white font-medium text-sm">{pillar.value}%</p>
+                                                        <p className="text-gray-500 text-xs">{pillar.name.split(' ')[0]}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </GlowCard>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Key Metrics */}
+                    <section className="py-20 relative">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="text-center mb-12">
+                                <h2 className="text-3xl font-bold text-white mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                                    Strategic <span className="gradient-text">Performance</span>
+                                </h2>
+                                <p className="text-gray-400 max-w-2xl mx-auto">
+                                    Real-time insights into our digital transformation journey and market leadership
+                                </p>
+                            </div>
+                            
+                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <StatCard icon="🏗️" label="Active Projects" value="12" subvalue="AED 4.2B Total Value" trend={15} />
+                                <StatCard icon="📈" label="YoY Growth" value="34%" subvalue="Exceeding targets" trend={8} />
+                                <StatCard icon="🎯" label="Customer NPS" value="98" subvalue="Industry Leading" trend={5} />
+                                <StatCard icon="🤖" label="AI Automation" value="72%" subvalue="Operational efficiency" trend={23} />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Strategic Initiatives */}
+                    <section className="py-20 relative">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <div className="flex items-center justify-between mb-12">
+                                <div>
+                                    <h2 className="text-3xl font-bold text-white mb-2" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                                        Digital <span className="gradient-text">Initiatives</span>
+                                    </h2>
+                                    <p className="text-gray-400">2026 transformation roadmap</p>
+                                </div>
+                                <GradientButton variant="secondary" className="hidden md:block">View All →</GradientButton>
+                            </div>
+                            
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {INITIATIVES.map((initiative, idx) => (
+                                    <GlowCard key={idx} className="p-6">
+                                        <div className="flex items-center justify-between mb-4">
+                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                                                initiative.status === 'active' 
+                                                    ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                                                    : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                                            }`}>
+                                                {initiative.status.toUpperCase()}
+                                            </span>
+                                            <span className="text-emerald-400 font-bold text-sm">{initiative.roi}</span>
+                                        </div>
+                                        <h3 className="text-white font-semibold text-lg mb-2">{initiative.name}</h3>
+                                        <div className="mb-4">
+                                            <div className="flex justify-between text-sm mb-1">
+                                                <span className="text-gray-400">Progress</span>
+                                                <span className="text-white font-medium">{initiative.progress}%</span>
+                                            </div>
+                                            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                                                <div 
+                                                    className="h-full rounded-full gradient-btn"
+                                                    style={{ width: `${initiative.progress}%`, transition: 'width 1s ease-out' }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-gray-500">Budget: {initiative.budget}</span>
+                                        </div>
+                                    </GlowCard>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Featured Project */}
+                    <section className="py-20 relative">
+                        <div className="max-w-7xl mx-auto px-6">
+                            <GlowCard className="p-8 lg:p-12 overflow-hidden relative">
+                                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-od-pink/10 to-transparent pointer-events-none" />
+                                <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+                                    <div>
+                                        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-od-pink/10 border border-od-pink/30 text-od-pink text-sm font-medium mb-6">
+                                            <span className="w-2 h-2 rounded-full bg-od-pink animate-pulse" />
+                                            Featured Project
+                                        </span>
+                                        <h2 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                                            One <span className="gradient-text">Residence</span>
+                                        </h2>
+                                        <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+                                            Al Reem Island's most anticipated luxury development. 
+                                            196 premium units across 31 floors with Abu Dhabi's first 
+                                            residential Hyperbaric Oxygen Therapy facility.
+                                        </p>
+                                        <div className="grid grid-cols-3 gap-4 mb-8">
+                                            <div className="text-center p-4 rounded-xl bg-white/5">
+                                                <p className="text-2xl font-bold gradient-text">196</p>
+                                                <p className="text-gray-400 text-sm">Units</p>
+                                            </div>
+                                            <div className="text-center p-4 rounded-xl bg-white/5">
+                                                <p className="text-2xl font-bold gradient-text">452M</p>
+                                                <p className="text-gray-400 text-sm">AED Revenue</p>
+                                            </div>
+                                            <div className="text-center p-4 rounded-xl bg-white/5">
+                                                <p className="text-2xl font-bold gradient-text">2028</p>
+                                                <p className="text-gray-400 text-sm">Completion</p>
+                                            </div>
+                                        </div>
+                                        <GradientButton onClick={() => onNavigate('project')}>
+                                            <span className="flex items-center gap-2">
+                                                <span>View Full Brief</span>
+                                                <span>→</span>
+                                            </span>
+                                        </GradientButton>
+                                    </div>
+                                    <div className="hidden lg:block">
+                                        <div className="relative h-[400px] flex items-center justify-center">
+                                            <div className="w-32 bg-gradient-to-t from-indigo-600 via-purple-500 to-amber-400 rounded-t-full rounded-b-lg"
+                                                 style={{ height: '350px', boxShadow: '0 0 60px rgba(216, 109, 203, 0.3)' }}>
+                                                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-48 h-16 bg-slate-700 rounded-lg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </GlowCard>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        // ==================== PROJECT BRIEF PAGE ====================
+        const ProjectBriefPage = ({ onNavigate }) => {
+            const [activeTab, setActiveTab] = useState('overview');
+            const [selectedFloor, setSelectedFloor] = useState(null);
+
+            const totalResidentialRevenue = useMemo(() => 
+                UNIT_TYPES.filter(u => u.type !== "Retail").reduce((sum, u) => sum + (u.units * u.avgPrice), 0), 
+            []);
+
+            return (
+                <div className="min-h-screen pb-12">
+                    {/* Project Header */}
+                    <header className="glass rounded-2xl mx-4 mt-4 mb-4 glow-border">
+                        <div className="max-w-7xl mx-auto px-6 py-5">
+                            <div className="flex items-center justify-between flex-wrap gap-4">
+                                <div className="flex items-center gap-4">
+                                    <button 
+                                        onClick={() => onNavigate('home')} 
+                                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+                                    >
+                                        <span className="text-gray-400 text-xl">←</span>
+                                    </button>
+                                    <Logo size="md" />
+                                    <div>
+                                        <h1 className="text-2xl font-bold gradient-text" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                                            {PROJECT_DATA.name.toUpperCase()}
+                                        </h1>
+                                        <p className="text-gray-400 text-sm flex items-center gap-1">
+                                            <span>📍</span> {PROJECT_DATA.location}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <div className="px-5 py-3 rounded-xl text-center bg-white/5 border border-white/10">
+                                        <div className="font-bold text-xl gradient-text">196</div>
+                                        <div className="text-xs text-gray-400">Units</div>
+                                    </div>
+                                    <div className="px-5 py-3 rounded-xl text-center bg-white/5 border border-white/10">
+                                        <div className="font-bold text-xl gradient-text">452M</div>
+                                        <div className="text-xs text-gray-400">AED</div>
+                                    </div>
+                                    <div className="px-5 py-3 rounded-xl text-center gradient-btn">
+                                        <div className="font-bold text-xl text-white">{PROJECT_DATA.completionDate}</div>
+                                        <div className="text-xs text-white/80">Completion</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Navigation */}
+                    <nav className="glass rounded-xl mx-4 mb-6 glow-border">
+                        <div className="max-w-7xl mx-auto px-4 py-3">
+                            <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
+                                <TabButton active={activeTab === 'overview'} onClick={() => setActiveTab('overview')} icon="📊">Overview</TabButton>
+                                <TabButton active={activeTab === 'units'} onClick={() => setActiveTab('units')} icon="🏠">Unit Mix</TabButton>
+                                <TabButton active={activeTab === 'tower'} onClick={() => setActiveTab('tower')} icon="🏢">Tower View</TabButton>
+                                <TabButton active={activeTab === 'financials'} onClick={() => setActiveTab('financials')} icon="💰">Financials</TabButton>
+                                <TabButton active={activeTab === 'amenities'} onClick={() => setActiveTab('amenities')} icon="✨">Amenities</TabButton>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Content */}
+                    <main className="max-w-7xl mx-auto px-6">
+                        
+                        {/* Overview */}
+                        {activeTab === 'overview' && (
+                            <div className="space-y-6">
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                                    <StatCard icon="🏢" label="Total Floors" value={PROJECT_DATA.totalFloors} subvalue={PROJECT_DATA.floors} />
+                                    <StatCard icon="🏠" label="Total Units" value={PROJECT_DATA.totalUnits} subvalue="195 Res + 1 Retail" />
+                                    <StatCard icon="📏" label="Tower Height" value={PROJECT_DATA.height} subvalue="Contemporary" />
+                                    <StatCard icon="🚗" label="Parking Bays" value={PROJECT_DATA.parking} subvalue="3-level podium" />
+                                    <StatCard icon="📐" label="Total GFA" value={`${(PROJECT_DATA.totalGFA.sqft / 1000).toFixed(0)}K ft²`} />
+                                    <StatCard icon="💵" label="Total Revenue" value={`${(PROJECT_DATA.totalRevenue / 1000000).toFixed(0)}M`} subvalue="AED" />
+                                </div>
+
+                                <div className="grid lg:grid-cols-3 gap-6">
+                                    <GlowCard className="p-6">
+                                        <h3 className="text-lg font-bold gradient-text mb-4 flex items-center gap-2">
+                                            <span>📋</span> Project Profile
+                                        </h3>
+                                        <div className="space-y-3">
+                                            {[
+                                                ["Master Developer", PROJECT_DATA.masterDeveloper],
+                                                ["Developer", PROJECT_DATA.developer],
+                                                ["Consultant", PROJECT_DATA.consultant],
+                                                ["Plot Number", PROJECT_DATA.plotNo],
+                                                ["Zone", `${PROJECT_DATA.zone} (Sector ${PROJECT_DATA.sector})`],
+                                                ["Land Title", "Private"],
+                                                ["Completion", PROJECT_DATA.completionDate]
+                                            ].map(([label, value], idx) => (
+                                                <div key={idx} className="flex justify-between items-center py-2 border-b border-white/5 last:border-0">
+                                                    <span className="text-gray-400 text-sm">{label}</span>
+                                                    <span className="text-white font-medium text-sm">{value}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </GlowCard>
+
+                                    <GlowCard className="p-6">
+                                        <h3 className="text-lg font-bold gradient-text mb-4 flex items-center gap-2">
+                                            <span>🥧</span> Unit Distribution
+                                        </h3>
+                                        <UnitMixChart />
+                                    </GlowCard>
+
+                                    <GlowCard className="p-6">
+                                        <h3 className="text-lg font-bold gradient-text mb-4 flex items-center gap-2">
+                                            <span>📍</span> Location
+                                        </h3>
+                                        <div className="space-y-3">
+                                            {[
+                                                ["🏙️", "CBD", "5-7 min"],
+                                                ["🌊", "Waterfront", "15 min"],
+                                                ["✈️", "Airport", "25-30 min"],
+                                                ["🌳", "Reem Park", "5 min"]
+                                            ].map(([icon, place, time], idx) => (
+                                                <div key={idx} className="flex items-center gap-3 p-3 bg-white/5 rounded-xl">
+                                                    <span className="text-xl">{icon}</span>
+                                                    <div className="flex-1 flex justify-between items-center">
+                                                        <p className="text-white text-sm font-medium">{place}</p>
+                                                        <p className="text-gray-400 text-sm">{time}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </GlowCard>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Units */}
+                        {activeTab === 'units' && (
+                            <div className="space-y-6">
+                                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    {UNIT_TYPES.map((unit, idx) => (
+                                        <GlowCard key={idx} className="p-5">
+                                            <div className="flex items-center justify-between mb-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-2 h-10 rounded-full" style={{ background: `linear-gradient(to bottom, ${unit.color}, ${unit.color}88)` }} />
+                                                    <h3 className="text-white font-semibold text-sm">{unit.type}</h3>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-2xl font-bold text-white">{unit.units}</p>
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+                                                <div className="flex justify-between">
+                                                    <span className="text-gray-400">Size</span>
+                                                    <span className="text-white text-xs">{unit.sizeRange}</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span className="text-gray-400">PSF</span>
+                                                    <span className="text-amber-400 text-xs">{unit.avgPsf.toLocaleString()}</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span className="text-gray-400">Price</span>
+                                                    <span className="text-emerald-400 text-xs">{unit.priceRange}</span>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <span className="text-gray-400">Rev</span>
+                                                    <span className="text-emerald-400 font-medium text-xs">{formatCurrency(unit.units * unit.avgPrice)}</span>
+                                                </div>
+                                            </div>
+                                        </GlowCard>
+                                    ))}
+                                </div>
+
+                                <GlowCard className="p-6">
+                                    <h3 className="text-lg font-bold gradient-text mb-4">📈 Revenue by Unit Type</h3>
+                                    <RevenueChart />
+                                </GlowCard>
+                            </div>
+                        )}
+
+                        {/* Tower View */}
+                        {activeTab === 'tower' && (
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-xl font-bold text-white flex items-center gap-2">🏢 Interactive Tower View</h2>
+                                    <p className="text-gray-400 text-sm">Click on any floor to see details</p>
+                                </div>
+
+                                <GlowCard className="p-6">
+                                    <TowerVisualization
+                                        selectedFloor={selectedFloor}
+                                        onFloorSelect={setSelectedFloor}
+                                    />
+                                </GlowCard>
+
+                                {selectedFloor && (
+                                    <GlowCard className="p-6">
+                                        <div className="flex items-center justify-between mb-4">
+                                            <h3 className="text-lg font-bold text-white">Floor {selectedFloor.level} Details</h3>
+                                            <span className={`px-3 py-1 rounded-lg text-sm ${
+                                                selectedFloor.type === 'Loft' ? 'bg-violet-500/20 text-violet-300' :
+                                                selectedFloor.type === 'Ground' ? 'bg-indigo-500/20 text-indigo-300' :
+                                                selectedFloor.type.includes('T1') ? 'bg-cyan-500/20 text-cyan-300' :
+                                                selectedFloor.type.includes('T2') ? 'bg-emerald-500/20 text-emerald-300' :
+                                                'bg-amber-500/20 text-amber-300'
+                                            }`}>{selectedFloor.type}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                            <div className="bg-white/5 rounded-xl p-4 text-center">
+                                                <p className="text-3xl font-bold text-white">{selectedFloor.units}</p>
+                                                <p className="text-gray-400 text-sm">Total Units</p>
+                                            </div>
+                                            <div className="bg-white/5 rounded-xl p-4 text-center">
+                                                <p className="text-2xl font-bold text-emerald-400">{formatCurrency(selectedFloor.revenue)}</p>
+                                                <p className="text-gray-400 text-sm">Floor Revenue</p>
+                                            </div>
+                                            <div className="bg-white/5 rounded-xl p-4 col-span-2">
+                                                <p className="text-gray-400 text-sm mb-2">Unit Mix</p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {Object.entries(selectedFloor.unitMix).map(([unitType, count]) => (
+                                                        <span key={unitType} className="px-3 py-1 bg-white/10 rounded-lg text-sm text-white">
+                                                            {count}x {unitType}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </GlowCard>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Financials */}
+                        {activeTab === 'financials' && (
+                            <div className="space-y-6">
+                                <div className="grid md:grid-cols-4 gap-4">
+                                    <StatCard icon="💵" label="Total Revenue" value={`AED ${(PROJECT_DATA.totalRevenue / 1000000).toFixed(1)}M`} />
+                                    <StatCard icon="📊" label="Avg. PSF" value="AED 1,566" />
+                                    <StatCard icon="🏠" label="Residential" value={`AED ${(totalResidentialRevenue / 1000000).toFixed(1)}M`} />
+                                    <StatCard icon="🏪" label="Retail" value="AED 7.19M" />
+                                </div>
+
+                                <div className="grid lg:grid-cols-2 gap-6">
+                                    <GlowCard className="p-6">
+                                        <h3 className="text-lg font-bold gradient-text mb-4">📊 Revenue by Floor Type</h3>
+                                        <div className="overflow-x-auto max-h-80 overflow-y-auto">
+                                            <table className="w-full text-sm">
+                                                <thead className="sticky top-0 bg-od-slate">
+                                                    <tr className="text-left text-gray-400 border-b border-white/10">
+                                                        <th className="pb-3">Floor</th>
+                                                        <th className="pb-3">Type</th>
+                                                        <th className="pb-3 text-center">Units</th>
+                                                        <th className="pb-3 text-right">Revenue</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {FLOOR_DATA.map((floor, idx) => (
+                                                        <tr key={idx} className="border-b border-white/5">
+                                                            <td className="py-2 text-white font-medium">{floor.floor}</td>
+                                                            <td className="py-2">
+                                                                <span className={`px-2 py-1 rounded text-xs ${
+                                                                    floor.type === 'Loft' ? 'bg-violet-500/20 text-violet-300' :
+                                                                    floor.type === 'Ground' ? 'bg-rose-500/20 text-rose-300' :
+                                                                    floor.type.includes('T1') ? 'bg-cyan-500/20 text-cyan-300' :
+                                                                    floor.type.includes('T2') ? 'bg-emerald-500/20 text-emerald-300' :
+                                                                    'bg-amber-500/20 text-amber-300'
+                                                                }`}>
+                                                                    {floor.type}
+                                                                </span>
+                                                            </td>
+                                                            <td className="py-2 text-center text-white">{floor.total}</td>
+                                                            <td className="py-2 text-right text-emerald-400 font-medium">{formatCurrency(floor.price)}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </GlowCard>
+
+                                    <GlowCard className="p-6">
+                                        <h3 className="text-lg font-bold gradient-text mb-4">💳 Payment Plan Summary</h3>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {[
+                                                { label: "Down Payment", percent: "10%", color: "indigo", timing: "On booking" },
+                                                { label: "Year 1", percent: "20%", color: "cyan", timing: "During construction" },
+                                                { label: "Year 2", percent: "20%", color: "amber", timing: "During construction" },
+                                                { label: "Handover", percent: "50%", color: "emerald", timing: "December 2028" }
+                                            ].map((item, idx) => (
+                                                <div key={idx} className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
+                                                    <p className="text-3xl font-bold text-white">{item.percent}</p>
+                                                    <p className="text-white font-medium text-sm">{item.label}</p>
+                                                    <p className="text-gray-400 text-xs">{item.timing}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </GlowCard>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Amenities */}
+                        {activeTab === 'amenities' && (
+                            <div className="space-y-6">
+                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+                                    {AMENITIES.map((amenity, idx) => (
+                                        <GlowCard key={idx} className="p-4 text-center">
+                                            <div className="text-3xl mb-2">{amenity.icon}</div>
+                                            <h3 className="text-white font-medium text-xs leading-tight">{amenity.name}</h3>
+                                        </GlowCard>
+                                    ))}
+                                </div>
+
+                                <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-2xl border border-amber-500/30 p-6">
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <span className="text-4xl">🏆</span>
+                                        <div>
+                                            <p className="text-amber-400 text-sm font-medium">PREMIUM AMENITY</p>
+                                            <h3 className="text-2xl font-bold text-white">Hyperbaric Oxygen Therapy (HBOT)</h3>
+                                        </div>
+                                    </div>
+                                    <p className="text-gray-300">
+                                        Abu Dhabi's first residential HBOT facility - cutting-edge wellness technology for therapeutic oxygen treatments.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </main>
+                </div>
+            );
+        };
+
+        // ==================== MAIN APP ====================
+        function App() {
+            const [currentPage, setCurrentPage] = useState('home');
+
+            return (
+                <div className="min-h-screen">
+                    {/* Fixed Header */}
+                    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+                        <div className="max-w-7xl mx-auto px-6 py-4">
+                            <div className="flex items-center justify-between">
+                                <button onClick={() => setCurrentPage('home')} className="flex items-center gap-3 group">
+                                    <Logo size="sm" />
+                                    <div className="hidden sm:block">
+                                        <h1 className="text-lg font-bold gradient-text" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                                            ONE DEVELOPMENT
+                                        </h1>
+                                        <p className="text-xs text-gray-500">Strategic Platform 2026</p>
+                                    </div>
+                                </button>
+                                <nav className="flex items-center gap-2">
+                                    <button 
+                                        onClick={() => setCurrentPage('home')}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                                            currentPage === 'home' 
+                                                ? 'bg-white/10 text-white' 
+                                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                        Strategy
+                                    </button>
+                                    <button 
+                                        onClick={() => setCurrentPage('project')}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                                            currentPage === 'project' 
+                                                ? 'bg-white/10 text-white' 
+                                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                        One Residence
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="pt-20">
+                        {currentPage === 'home' && <HomePage onNavigate={setCurrentPage} />}
+                        {currentPage === 'project' && <ProjectBriefPage onNavigate={setCurrentPage} />}
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="border-t border-white/10 mt-20">
+                        <div className="max-w-7xl mx-auto px-6 py-8">
+                            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                                <div className="flex items-center gap-4">
+                                    <Logo size="sm" />
+                                    <div>
+                                        <p className="font-bold text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>ONE DEVELOPMENT</p>
+                                        <p className="text-xs text-gray-500">Building Tomorrow, Today</p>
+                                    </div>
+                                </div>
+                                <p className="text-gray-500 text-sm">© 2024 One Development. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
