@@ -405,22 +405,29 @@ export default function Home() {
           <p className="section-subtitle">A unified, intelligent ecosystem connecting every stakeholder under one digital umbrella.</p>
         </div>
         <div className="oneapp-visual">
-          <div className="oneapp-spoke" style={{ top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
-            {ONEAPP_SPOKES[0].label}<small>{ONEAPP_SPOKES[0].desc}</small>
-          </div>
-          <div className="oneapp-spoke" style={{ top: '30%', right: '8%' }}>
-            {ONEAPP_SPOKES[1].label}<small>{ONEAPP_SPOKES[1].desc}</small>
-          </div>
+          {/* 5 spokes evenly distributed at 72° intervals, starting from top */}
+          {ONEAPP_SPOKES.map((spoke, idx) => {
+            // Calculate position on circle: -90° starts at top, then 72° apart
+            const angle = -90 + (idx * 72);
+            const radian = (angle * Math.PI) / 180;
+            const radius = 42; // percentage from center
+            const x = 50 + radius * Math.cos(radian);
+            const y = 50 + radius * Math.sin(radian);
+            return (
+              <div
+                key={idx}
+                className="oneapp-spoke"
+                style={{
+                  top: `${y}%`,
+                  left: `${x}%`,
+                  transform: 'translate(-50%, -50%)'
+                }}
+              >
+                {spoke.label}<small>{spoke.desc}</small>
+              </div>
+            );
+          })}
           <div className="oneapp-center"><span>ONE</span><span>APP</span></div>
-          <div className="oneapp-spoke" style={{ bottom: '30%', right: '8%' }}>
-            {ONEAPP_SPOKES[2].label}<small>{ONEAPP_SPOKES[2].desc}</small>
-          </div>
-          <div className="oneapp-spoke" style={{ bottom: '5%', left: '50%', transform: 'translateX(-50%)' }}>
-            {ONEAPP_SPOKES[3].label}<small>{ONEAPP_SPOKES[3].desc}</small>
-          </div>
-          <div className="oneapp-spoke" style={{ top: '30%', left: '8%' }}>
-            {ONEAPP_SPOKES[4].label}<small>{ONEAPP_SPOKES[4].desc}</small>
-          </div>
         </div>
       </section>
 

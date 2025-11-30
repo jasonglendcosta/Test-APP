@@ -664,11 +664,36 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 450px;
-  margin-top: 60px;
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  margin: 60px auto 0;
+}
+
+/* Orbit ring around center */
+.oneapp-visual::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 340px;
+  border: 1px dashed rgba(216, 109, 203, 0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: orbitSpin 60s linear infinite;
+}
+
+@keyframes orbitSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 .oneapp-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 160px;
   height: 160px;
   background: var(--gradient-1);
@@ -685,7 +710,6 @@ body {
     0 0 120px rgba(216, 109, 203, 0.3),
     inset 0 0 30px rgba(255, 255, 255, 0.1);
   animation: centerPulse 4s ease-in-out infinite;
-  position: relative;
 }
 
 .oneapp-center::before {
@@ -707,8 +731,8 @@ body {
 }
 
 @keyframes centerPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.05); }
 }
 
 @keyframes ringPulse {
@@ -741,7 +765,7 @@ body {
 
 .oneapp-spoke:hover {
   border-color: var(--primary);
-  transform: scale(1.08);
+  transform: translate(-50%, -50%) scale(1.08);
   box-shadow:
     0 15px 50px rgba(216, 109, 203, 0.3),
     0 0 20px rgba(216, 109, 203, 0.2);
@@ -4504,5 +4528,577 @@ button, .tab-btn, .nav-links a, .floor-marker {
     border: 1px solid #ddd;
     background: white;
     page-break-inside: avoid;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOMEPAGE MOBILE OPTIMIZATIONS (768px and below)
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Hero Section */
+  .hero {
+    min-height: auto;
+    padding: 100px 16px 60px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .hero-badge {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero-cta .cta-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 14px;
+    justify-content: center;
+  }
+
+  /* Section Headers */
+  .section {
+    padding: 60px 16px;
+  }
+
+  .section-header {
+    margin-bottom: 32px;
+  }
+
+  .section-tag {
+    font-size: 10px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* Pillars Grid */
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pillar-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .pillar-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .pillar-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .pillar-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* Ecosystem Grid */
+  .ecosystem-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ecosystem-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .ecosystem-icon {
+    font-size: 28px;
+  }
+
+  .ecosystem-title {
+    font-size: 15px;
+  }
+
+  .ecosystem-desc {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* ONE APP Section */
+  .oneapp-section {
+    padding: 60px 16px;
+  }
+
+  .oneapp-visual {
+    height: 420px;
+    max-width: 100%;
+    margin-top: 40px;
+  }
+
+  .oneapp-visual::before {
+    width: 280px;
+    height: 280px;
+  }
+
+  .oneapp-center {
+    width: 120px;
+    height: 120px;
+  }
+
+  .oneapp-center span:first-child {
+    font-size: 24px;
+  }
+
+  .oneapp-center span:last-child {
+    font-size: 16px;
+  }
+
+  .oneapp-center::before {
+    inset: -15px;
+  }
+
+  .oneapp-center::after {
+    inset: -30px;
+  }
+
+  .oneapp-spoke {
+    padding: 12px 16px;
+    font-size: 12px;
+    border-radius: 14px;
+    max-width: 140px;
+    text-align: center;
+  }
+
+  .oneapp-spoke small {
+    font-size: 9px;
+    margin-top: 2px;
+  }
+
+  /* Timeline/Roadmap */
+  .timeline-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+
+  .timeline-bar {
+    min-width: 700px;
+  }
+
+  .timeline-quarter {
+    padding: 16px;
+  }
+
+  .quarter-label {
+    font-size: 14px;
+  }
+
+  .quarter-date {
+    font-size: 10px;
+  }
+
+  .milestone-items {
+    gap: 8px;
+  }
+
+  .milestone-item {
+    font-size: 11px;
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
+
+  .milestone-tag {
+    font-size: 8px;
+    padding: 2px 6px;
+  }
+
+  /* Team Section */
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .team-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .team-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+
+  .team-name {
+    font-size: 16px;
+  }
+
+  .team-role {
+    font-size: 12px;
+  }
+
+  .team-desc {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* CTA Button */
+  .cta-btn {
+    padding: 14px 24px;
+    font-size: 14px;
+    border-radius: 12px;
+    min-height: 48px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 40px 16px;
+    text-align: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer-text {
+    font-size: 12px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOMEPAGE MOBILE PORTRAIT (480px and below)
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  /* Hero Section */
+  .hero {
+    padding: 80px 12px 50px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+    letter-spacing: -0.3px;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+  }
+
+  .hero-badge {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+
+  /* Sections */
+  .section {
+    padding: 50px 12px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  .section-subtitle {
+    font-size: 12px;
+  }
+
+  .section-tag {
+    font-size: 9px;
+    padding: 5px 10px;
+  }
+
+  /* Pillar Cards */
+  .pillar-card {
+    padding: 16px;
+  }
+
+  .pillar-icon {
+    font-size: 28px;
+  }
+
+  .pillar-title {
+    font-size: 15px;
+  }
+
+  .pillar-desc {
+    font-size: 12px;
+  }
+
+  /* Ecosystem */
+  .ecosystem-card {
+    padding: 16px;
+  }
+
+  .ecosystem-icon {
+    font-size: 24px;
+  }
+
+  .ecosystem-title {
+    font-size: 14px;
+  }
+
+  .ecosystem-desc {
+    font-size: 11px;
+  }
+
+  /* ONE APP Hub - Stack vertically on very small screens */
+  .oneapp-visual {
+    height: 500px;
+    flex-direction: column;
+  }
+
+  .oneapp-center {
+    width: 100px;
+    height: 100px;
+  }
+
+  .oneapp-center span:first-child {
+    font-size: 20px;
+  }
+
+  .oneapp-center span:last-child {
+    font-size: 14px;
+  }
+
+  .oneapp-center::before {
+    inset: -12px;
+  }
+
+  .oneapp-center::after {
+    inset: -24px;
+  }
+
+  .oneapp-visual::before {
+    width: 220px;
+    height: 220px;
+  }
+
+  .oneapp-spoke {
+    padding: 10px 12px;
+    font-size: 11px;
+    max-width: 120px;
+    border-radius: 12px;
+  }
+
+  .oneapp-spoke small {
+    font-size: 8px;
+    line-height: 1.2;
+  }
+
+  /* Team */
+  .team-card {
+    padding: 16px;
+  }
+
+  .team-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .team-name {
+    font-size: 15px;
+  }
+
+  .team-role {
+    font-size: 11px;
+  }
+
+  .team-desc {
+    font-size: 11px;
+  }
+
+  /* Timeline */
+  .timeline-bar {
+    min-width: 600px;
+  }
+
+  .milestone-item {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOMEPAGE EXTRA SMALL (360px and below)
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 360px) {
+  .hero h1 {
+    font-size: 22px;
+  }
+
+  .hero-subtitle {
+    font-size: 12px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .section-subtitle {
+    font-size: 11px;
+  }
+
+  /* ONE APP - Use list layout for tiny screens */
+  .oneapp-visual {
+    height: auto;
+    min-height: 450px;
+  }
+
+  .oneapp-center {
+    width: 90px;
+    height: 90px;
+  }
+
+  .oneapp-center span:first-child {
+    font-size: 18px;
+  }
+
+  .oneapp-center span:last-child {
+    font-size: 12px;
+  }
+
+  .oneapp-visual::before {
+    width: 180px;
+    height: 180px;
+  }
+
+  .oneapp-spoke {
+    padding: 8px 10px;
+    font-size: 10px;
+    max-width: 100px;
+  }
+
+  .oneapp-spoke small {
+    font-size: 7px;
+  }
+
+  .pillar-card,
+  .ecosystem-card,
+  .team-card {
+    padding: 14px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   iOS HOMEPAGE FIXES
+   ═══════════════════════════════════════════════════════════════════ */
+@supports (-webkit-touch-callout: none) {
+  /* Make main content scrollable on iOS */
+  main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Safe area for hero */
+  .hero {
+    padding-top: max(100px, calc(80px + env(safe-area-inset-top)));
+  }
+
+  /* Fix ONE APP spoke positions on iOS */
+  .oneapp-spoke {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .oneapp-spoke:active {
+    -webkit-transform: translate(-50%, -50%) scale(0.95);
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANDROID HOMEPAGE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure touch targets are large enough */
+  .pillar-card,
+  .ecosystem-card,
+  .team-card,
+  .oneapp-spoke,
+  .cta-btn,
+  .nav-link {
+    min-height: 48px;
+  }
+
+  /* Remove hover effects */
+  .pillar-card:hover,
+  .ecosystem-card:hover,
+  .team-card:hover,
+  .oneapp-spoke:hover {
+    transform: translate(-50%, -50%);
+    box-shadow: none;
+  }
+
+  /* Add active press states */
+  .pillar-card:active,
+  .ecosystem-card:active,
+  .team-card:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  .oneapp-spoke:active {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.9;
+  }
+
+  /* Ripple effect for cards */
+  .pillar-card,
+  .ecosystem-card,
+  .team-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar-card::after,
+  .ecosystem-card::after,
+  .team-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(216, 109, 203, 0.15);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+  }
+
+  .pillar-card:active::after,
+  .ecosystem-card:active::after,
+  .team-card:active::after {
+    width: 300%;
+    height: 300%;
   }
 }
