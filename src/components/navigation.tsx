@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useScrollPosition } from '@/hooks/use-scroll-position'
-import { ThemeToggle } from '@/components/theme-toggle'
 import { cn } from '@/lib/utils'
 
 interface NavItem {
@@ -61,8 +60,6 @@ export function Navigation() {
 
             {/* Right side */}
             <div className="flex items-center gap-3">
-              <ThemeToggle />
-
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

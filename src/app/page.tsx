@@ -1,10 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { NotificationCenter } from '@/components/notifications/notification-center';
 import { LiveIndicator } from '@/components/live-indicator';
-import { PDFButton } from '@/components/export/pdf-button';
 import { ScrollReveal } from '@/components/scroll-reveal';
 import { TiltCard } from '@/components/tilt-card';
 import { useLiveData } from '@/hooks/use-live-data';
@@ -379,9 +377,7 @@ export default function Home() {
             lastUpdated={liveData?.metrics?.lastUpdated}
             onRefresh={refresh}
           />
-          <PDFButton elementId="main-content" variant="icon" />
           <NotificationCenter />
-          <ThemeToggle />
         </div>
       </nav>
 
