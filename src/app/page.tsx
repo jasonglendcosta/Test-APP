@@ -185,14 +185,26 @@ const LEADERSHIP_TEAM = [
 // ═══════════════════════════════════════════════════════════════════
 
 const FloatingParticles: React.FC = () => {
-  const particles = useMemo(() =>
-    Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}%`,
-      animationDelay: `${Math.random() * 20}s`,
-      animationDuration: `${15 + Math.random() * 10}s`,
-    })), []
-  );
+  const [particles, setParticles] = useState<Array<{
+    id: number;
+    left: string;
+    animationDelay: string;
+    animationDuration: string;
+  }>>([]);
+
+  useEffect(() => {
+    // Generate particles only on client to avoid hydration mismatch
+    setParticles(
+      Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        animationDelay: `${Math.random() * 20}s`,
+        animationDuration: `${15 + Math.random() * 10}s`,
+      }))
+    );
+  }, []);
+
+  if (particles.length === 0) return null;
 
   return (
     <div className="particles">
