@@ -9,6 +9,8 @@ import { CommandPalette } from '@/components/command-palette'
 import { Chatbot } from '@/components/ai/chatbot'
 import { ShortcutsModal } from '@/components/shortcuts-modal'
 import { SkipLink } from '@/components/accessibility/skip-link'
+import { WebGLBackground } from '@/components/webgl/WebGLBackground'
+import { CustomCursor } from '@/components/ui/custom-cursor'
 import '@/styles/globals.css'
 
 const inter = Inter({
@@ -117,7 +119,8 @@ export default function RootLayout({
         <ThemeProvider>
           <PWAProvider>
             <SkipLink />
-            <div className="bg-animation" aria-hidden="true" />
+            <WebGLBackground theme="dark" interactive particles stars />
+            <CustomCursor />
             <div className="grid-overlay" aria-hidden="true" />
             {children}
             <CommandPalette />
