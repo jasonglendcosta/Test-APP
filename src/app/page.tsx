@@ -1,6 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { NotificationCenter } from '@/components/notifications/notification-center';
+import { LiveIndicator } from '@/components/live-indicator';
+import { PDFButton } from '@/components/export/pdf-button';
+import { ScrollReveal } from '@/components/scroll-reveal';
+import { TiltCard } from '@/components/tilt-card';
+import { useLiveData } from '@/hooks/use-live-data';
+import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts';
 
 // ═══════════════════════════════════════════════════════════════════
 // DATA - ALL ORIGINAL CONTENT WITH EMBEDDED LINKS
@@ -260,6 +268,10 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState('home');
   const [showProjectModal, setShowProjectModal] = useState(false);
 
+  // Initialize keyboard shortcuts & live data (must be before conditionals)
+  useKeyboardShortcuts();
+  const { data: liveData, isValidating, refresh } = useLiveData();
+
   useEffect(() => {
     const hasSeenModal = sessionStorage.getItem('hasSeenProjectModal');
     if (!hasSeenModal) {
@@ -333,7 +345,7 @@ export default function Home() {
   }
 
   return (
-    <div className="App">
+    <div className="App" id="main-content">
       <div className="bg-animation" />
       <div className="grid-overlay" />
       <FloatingParticles />
@@ -347,6 +359,17 @@ export default function Home() {
           <a onClick={() => scrollToSection('roadmap')}>Roadmap</a>
           <a onClick={() => scrollToSection('team')}>Team</a>
           <a onClick={() => setCurrentPage('project')}>Project Brief</a>
+        </div>
+        <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <LiveIndicator
+            isLive={!!liveData}
+            isValidating={isValidating}
+            lastUpdated={liveData?.metrics?.lastUpdated}
+            onRefresh={refresh}
+          />
+          <PDFButton elementId="main-content" variant="icon" />
+          <NotificationCenter />
+          <ThemeToggle />
         </div>
       </nav>
 

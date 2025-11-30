@@ -1,9 +1,60 @@
 import type { Metadata, Viewport } from 'next'
+import { Inter, Space_Grotesk } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { ThemeProvider } from '@/components/theme-provider'
+import { PWAProvider } from '@/components/pwa-provider'
+import { Toaster } from '@/components/ui/toast'
+import { CommandPalette } from '@/components/command-palette'
+import { Chatbot } from '@/components/ai/chatbot'
+import { ShortcutsModal } from '@/components/shortcuts-modal'
+import { SkipLink } from '@/components/accessibility/skip-link'
 import '@/styles/globals.css'
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-grotesk',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
+  metadataBase: new URL('https://one-development.com'),
   title: 'ONE DEVELOPMENT | Strategic Platform 2026',
-  description: 'ONE DEVELOPMENT - 2026 Digital Transformation & AI Strategy',
+  description: 'ONE DEVELOPMENT - 2026 Digital Transformation & AI Strategy. Building the future of real estate with AI-powered solutions.',
+  keywords: ['ONE Development', 'Real Estate', 'Dubai', 'AI', 'Digital Transformation', '2026 Strategy'],
+  authors: [{ name: 'ONE Development' }],
+  creator: 'ONE Development',
+  publisher: 'ONE Development',
+  // OpenGraph
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://one-development.com',
+    siteName: 'ONE Development',
+    title: 'ONE DEVELOPMENT | Strategic Platform 2026',
+    description: 'Building the future of real estate with AI-powered solutions. Digital Transformation & Strategy Platform.',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ONE Development - Strategic Platform 2026',
+      },
+    ],
+  },
+  // Twitter
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ONE DEVELOPMENT | Strategic Platform 2026',
+    description: 'Building the future of real estate with AI-powered solutions.',
+    images: ['/og-image.png'],
+  },
   // iOS Web App
   appleWebApp: {
     capable: true,
@@ -18,6 +69,11 @@ export const metadata: Metadata = {
     telephone: false,
     email: false,
     address: false,
+  },
+  // Robots
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -41,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
       <head>
         {/* iOS Status Bar */}
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -58,9 +114,20 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body>
-        <div className="bg-animation" />
-        <div className="grid-overlay" />
-        {children}
+        <ThemeProvider>
+          <PWAProvider>
+            <SkipLink />
+            <div className="bg-animation" aria-hidden="true" />
+            <div className="grid-overlay" aria-hidden="true" />
+            {children}
+            <CommandPalette />
+            <Chatbot />
+            <ShortcutsModal />
+            <Toaster />
+          </PWAProvider>
+        </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
