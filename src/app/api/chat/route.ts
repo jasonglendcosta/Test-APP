@@ -5,6 +5,8 @@ export const runtime = 'edge'
 
 const SYSTEM_PROMPT = `You are the ONE Development AI Assistant, an expert on ONE Development's 2026 strategy, digital transformation initiatives, and the One Residence project in Abu Dhabi.
 
+IMPORTANT: You MUST use the knowledge base below to answer questions. Always reference specific data, numbers, prices, and details from the knowledge base. Do NOT give generic answers - always provide specific information from the data.
+
 You have comprehensive knowledge about:
 - ONE Development's 2026 strategic blueprint and vision
 - The Five Pillars of Intelligence (Clients, Staff, Company Operations, Business Partners, Projects & Buildings)
@@ -14,19 +16,30 @@ You have comprehensive knowledge about:
 - The leadership team and their roles
 - One Residence project details (units, pricing, amenities, timeline, etc.)
 
-Here is your knowledge base:
+=== KNOWLEDGE BASE START ===
 ${PAGE_CONTEXT}
+=== KNOWLEDGE BASE END ===
 
 Guidelines:
-1. Be helpful, professional, and knowledgeable
-2. Provide specific data and numbers when available (prices, unit counts, dates, etc.)
-3. If asked about something not in your knowledge base, politely say you don't have that information
-4. Keep responses concise but informative
-5. Use markdown formatting for better readability when listing information
-6. When discussing prices, use AED currency format
-7. Be enthusiastic about ONE Development's vision and projects
+1. ALWAYS use specific data from the knowledge base above - never give generic answers
+2. Include exact numbers: prices (in AED), unit counts, dates, percentages, etc.
+3. When asked about units, give exact counts, sizes (sqft), and price ranges
+4. When asked about amenities, list them with details
+5. When asked about strategy, reference specific KPIs and initiatives
+6. If asked about something not in your knowledge base, politely say you don't have that information
+7. Keep responses concise but data-rich
+8. Use markdown formatting for lists and tables when appropriate
+9. Be enthusiastic about ONE Development's vision and projects
 
-If the user asks a greeting or general question, introduce yourself briefly and offer to help with information about the strategy, projects, or initiatives.`
+Example of GOOD response for "What units are available?":
+"One Residence offers 196 premium units across these configurations:
+- **1 Bedroom**: 76 units (63 Simplex + 13 Duplex), AED 1.4M - 2.3M
+- **2 Bedroom**: 85 units (74 Simplex + 11 Duplex), AED 1.9M - 3.9M
+- **3 Bedroom**: 32 units (20 Simplex + 12 Duplex), AED 2.8M - 4.5M
+- **4 Bedroom**: 2 Duplex units, AED 5.6M - 5.9M
+- **Retail**: 1 unit, AED 7.2M"
+
+If the user asks a greeting, introduce yourself and mention you can help with specific information about One Residence (pricing, units, amenities), 2026 strategy, digital initiatives, and the leadership team.`
 
 export async function POST(req: Request) {
   try {
@@ -34,7 +47,9 @@ export async function POST(req: Request) {
     const lastMessage = messages[messages.length - 1]?.content || ''
 
     // Check if OpenAI API key is configured
-    if (!process.env.OPENAI_API_KEY) {
+    const apiKey = process.env.OPENAI_API_KEY
+    if (!apiKey) {
+      console.error('OPENAI_API_KEY is not configured')
       return NextResponse.json({
         message: getFallbackResponse(lastMessage)
       })
@@ -45,7 +60,7 @@ export async function POST(req: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini',
@@ -56,28 +71,34 @@ export async function POST(req: Request) {
             content: m.content,
           })),
         ],
-        max_tokens: 1000,
-        temperature: 0.7,
+        max_tokens: 1500,
+        temperature: 0.3,
       }),
     })
 
     if (!response.ok) {
-      const error = await response.text()
-      console.error('OpenAI API error:', error)
+      const errorText = await response.text()
+      console.error('OpenAI API error:', response.status, errorText)
+      return NextResponse.json({
+        message: `I'm having trouble connecting to my AI service. Here's what I know:\n\n${getFallbackResponse(lastMessage)}`
+      })
+    }
+
+    const data = await response.json()
+    const assistantMessage = data.choices?.[0]?.message?.content
+
+    if (!assistantMessage) {
+      console.error('No message in OpenAI response:', data)
       return NextResponse.json({
         message: getFallbackResponse(lastMessage)
       })
     }
 
-    const data = await response.json()
-    const assistantMessage = data.choices?.[0]?.message?.content || getFallbackResponse(lastMessage)
-
     return NextResponse.json({ message: assistantMessage })
   } catch (error) {
     console.error('Chat API error:', error)
-    const { messages } = await req.json().catch(() => ({ messages: [] }))
     return NextResponse.json({
-      message: getFallbackResponse(messages[messages.length - 1]?.content || '')
+      message: `Sorry, I encountered an error. Here's what I can tell you:\n\n${getFallbackResponse('')}`
     })
   }
 }
