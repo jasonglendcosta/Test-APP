@@ -80,7 +80,7 @@ export async function POST(req: Request) {
       const errorText = await response.text()
       console.error('OpenAI API error:', response.status, errorText)
       return NextResponse.json({
-        message: `I'm having trouble connecting to my AI service. Here's what I know:\n\n${getFallbackResponse(lastMessage)}`
+        message: getFallbackResponse(lastMessage)
       })
     }
 
